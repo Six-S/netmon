@@ -5,7 +5,8 @@ class Test():
 
     def __init__(self):
         self.servers = []
-        self.net_history = []
+        self.net_history = [ [], [], [] ]
+        self.values = [ 'download', 'upload', 'ping' ]
         self.current_stats = {}
         # If you want to test against a specific server
         # servers = [1234]
@@ -30,27 +31,32 @@ class Test():
     
     #Grab the values we need from our results.
     def parse_results(self):
-        values = [ 'download', 'upload', 'ping', 'timestamp' ]
-        plot_points = {}
         if self.current_stats and len(self.current_stats) > 0:
-            for val in values:
-                plot_points[val] = self.current_stats[val]
-
-            self.net_history.append(plot_points)
-            return plot_points
+            for i, val in enumerate(self.values):
+                self.net_history[i].append(self.current_stats[val])
 
     def plot(self):
-        print('About to start plotting...')
-        colors = ["black", "blue", "green", "purple", "red", "yellow"]
+        if len(self.net_history[0]) > 5:
+            print('About to start plotting...')
+            colors = ["black", "blue", "green", "purple", "red", "yellow"]
 
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
+            fig = plt.figure()
+            ax = fig.add_subplot(111)
 
-        ax.set_xlabel("Time", fontsize=15)
-        ax.set_ylabel("Speed", fontsize=15)
+            ax.set_xlabel("Time", fontsize=15)
+            ax.set_ylabel("Speed", fontsize=15)
+            plt.title("Internet Speed Over Time")
 
-        for i, item in enumerate(self.net_history):
-            ax.plot(item[])
+            for i, item in enumerate(self.net_history):
+                print(i, item)
+                plt.plot(item)
+                # for val in item:
+                    # print(val)
+                    # plt.plot(self.net_history[i], )
+            plt.legend()
+            plt.show()
 
+        # for i in range(len(y[0])):
+        #     plt.plot(x,[pt[i] for pt in y],label = 'id %s'%i)
 
 

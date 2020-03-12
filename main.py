@@ -2,6 +2,7 @@ import test
 import utils
 import sys
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 if __name__ in "__main__":
 
@@ -18,7 +19,8 @@ if __name__ in "__main__":
     while not should_quit:
         logger.log('[INFO] Starting test.', False)
         nettest.run_test()
-        testval = nettest.parse_results()
-        logger.log('[INFO] Test completed at {}'.format(testval['timestamp']), False)
+        nettest.parse_results()
+        logger.log('[INFO] Test completed at {}'.format(datetime.now()), False)
+        nettest.plot()
 
 
